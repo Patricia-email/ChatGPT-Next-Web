@@ -5,7 +5,6 @@ import { RequestMessage } from "./client/api";
 import { ServiceProvider } from "./constant";
 // import { fetch as tauriFetch, ResponseType } from "@tauri-apps/api/http";
 import { fetch as tauriStreamFetch } from "./utils/stream";
-import { VISION_MODEL_REGEXES, EXCLUDE_VISION_MODEL_REGEXES } from "./constant";
 import { useAccessStore } from "./store";
 import { ModelSize } from "./typing";
 
@@ -256,16 +255,15 @@ export function getMessageImages(message: RequestMessage): string[] {
 
 export function isVisionModel(model: string) {
   const visionModels = useAccessStore.getState().visionModels;
-  const envVisionModels = visionModels
-    ?.split(",")
-    .map((m) => m.trim());
-  if (envVisionModels?.includes(model)) {
-    return true;
-  }
-  return (
-    !EXCLUDE_VISION_MODEL_REGEXES.some((regex) => regex.test(model)) &&
-    VISION_MODEL_REGEXES.some((regex) => regex.test(model))
-  );
+  const envVisionModels = visionModels?.split(",").map((m) => m.trim());
+  return true;
+  // if (envVisionModels?.includes(model)) {
+  //   return true;
+  // }
+  // return (
+  //   !EXCLUDE_VISION_MODEL_REGEXES.some((regex) => regex.test(model)) &&
+  //   VISION_MODEL_REGEXES.some((regex) => regex.test(model))
+  // );
 }
 
 export function isDalle3(model: string) {
